@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Graduation Day Invitation</title>
+  <style>
+    /* Inline CSS for styling */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    /* Envelope styling with flap */
+    .envelope-container {
+  position: relative;
+  width: 300px;
+  height: 180px;
+  background: #ffd700;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* Envelope flap styles */
+.envelope-flap {
+  position: absolute;
+  top: -100px;
+  width: 100%;
+  height: 100px;
+  background: red;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  transform-origin: bottom; /* Sets the rotation point at the bottom */
+  transform: rotateX(180deg); /* Starts in a closed position */
+  transition: transform 0.5s ease, top 0.5s ease;
+}
+
+/* Open state for the flap */
+.envelope-flap.open {
+  transform: rotateX(0deg); /* Flips open on click */
+  top: -100px; /* Moves the flap up for a natural opening effect */
+}
+
+
+    .envelope-button {
+      position: relative;
+      font-size: 18px;
+      color: #fff;
+      background-color: #333;
+      border: none;
+      top:20px;
+      border-radius: 50%;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .envelope-button:hover {
+      background-color: #555;
+    }
+    .invitation {
+      display: none;
+      position: absolute;
+      background: #fff;
+      border-radius: 15px;
+      padding: 30px;
+      max-width: 500px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 1s ease-out forwards;
+    }
+    .invitation.show {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .title {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .content {
+      font-size: 16px;
+      color: #555;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+    .rsvp-button {
+      padding: 10px 20px;
+      border: none;
+      background-color: #ff5858;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    .rsvp-button:hover {
+      background-color: #ff4343;
+    }
+    .footer {
+      font-size: 12px;
+      color: #777;
+      margin-top: 20px;
+    }
+    /* Confetti animation */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: yellow;
+      opacity: 0.8;
+      border-radius: 50%;
+      animation: fall 3s linear infinite;
+    }
+    @keyframes fall {
+      0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Envelope Container -->
+  <div class="envelope-container" id="envelope">
+    <div class="envelope-flap" id="flap"></div>
+    <button class="envelope-button" onclick="openEnvelope()">Open</button>
+  </div>
+
+  <!-- Invitation Content -->
+  <div class="invitation" id="invitation">
+    <div class="title">Graduation Day Celebration!</div>
+    <div class="content">
+      Join us to celebrate the achievements of our IT sector employees on their Graduation Day!<br><br>
+      <strong>Date:</strong> 25th November 2024<br>
+      <strong>Time:</strong> 10:00 AM - 1:00 PM<br>
+      <strong>Location:</strong> Main Auditorium<br><br>
+      Be prepared for a day of fun, engaging activities, and celebrations!
+    </div>
+    <button class="rsvp-button" onclick="showRSVP()">RSVP Now</button>
+    <div id="rsvp" class="content" style="display: none; color: green; font-weight: bold;">
+      Thank you for your RSVP! See you there!
+    </div>
+    <div class="footer">
+      Please reach out to the event coordinator if you have any questions.
+    </div>
+  </div>
+
+  <!-- JavaScript for interactivity and confetti animation -->
+  <script>
+    function openEnvelope() {
+      document.getElementById("flap").classList.add("open");
+      setTimeout(() => {
+        document.getElementById("invitation").classList.add("show");
+        startConfetti();
+      }, 500);
+    }
+
+    function showRSVP() {
+      document.getElementById("rsvp").style.display = "block";
+    }
+
+    // Confetti animation
+    function createConfetti() {
+      const confetti = document.createElement("div");
+      confetti.classList.add("confetti");
+      confetti.style.left = Math.random() * 100 + "vw";
+      confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 50%)`;
+      document.body.appendChild(confetti);
+
+      setTimeout(() => {
+        confetti.remove();
+      }, 3000);
+    }
+
+    function startConfetti() {
+      setInterval(createConfetti, 100);
+    }
+  </script>
+</body>
+</html>
